@@ -19,6 +19,7 @@ const l10nDeleteTranslations = require('../lib/l10nDeleteTranslations')
 const createDist = require('../lib/createDist')
 const upload = require('../lib/upload')
 const test = require('../lib/test')
+const headerDeps = require('../lib/headerDeps')
 
 const collect = (value, accumulator) => {
   accumulator.push(value)
@@ -37,6 +38,10 @@ program
 program
   .command('versions')
   .action(versions)
+
+program
+  .command('header_deps')
+  .action(headerDeps)
 
 program
   .command('apply_patches')
