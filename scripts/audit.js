@@ -5,7 +5,13 @@
 const config = require('../lib/config')
 const util = require('../lib/util')
 
-let cmdOptions = {
-  shell: process.platform === 'win32'
-}
-util.run('ninja', ['-C', config.outputDir, "brave:audit_deps"], cmdOptions)
+let ninjaOpts = [
+  '-C', config.outputDir, 'brave:audit_deps',
+  ...config.extraNinjaOpts,
+]
+
+let prog = util.run('ninja', ninjaOpts, config.defaultOptions)
+
+console.log("Audit_deps returned a status code of " + prog.status)
+console.log(prog.stdout && prog.stdout.toString())
+console.error(prog.stderr && prog.stderr.toString())
